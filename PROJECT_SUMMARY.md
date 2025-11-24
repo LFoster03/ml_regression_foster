@@ -14,97 +14,81 @@ This document summarizes the key decisions, assumptions, and findings for this r
 ## 1. Target Variable
 
 - Target variable name: charges
-- Two class values:
-- Values are mutually exclusive and collectively exhaustive (yes/no):
-- Any unexpected or missing class values identified:
+- Type: Continuous Numeric
+- Summary Statistics: 
+  - **Count:** 1,338 records  
+  - **Mean:** \$13,270.42  
+  - **Median:** \$9,382.03  
+  - **Standard deviation:** \$12,110.01  
+  - **Minimum:** \$1,121.87  
+  - **25th percentile:** \$4,740.29  
+  - **75th percentile:** \$16,639.91  
+  - **Maximum:** \$63,770.43 
+- Missing Values: None
+- Distribution: Right-skewed, some high-cost outliers
 
 
-## 2. Positive Class Definition
+## 2. Costs of Errors
 
-- Positive class (label = 1):
-- Rationale for choosing this class:
-- How this affects interpretation of precision, recall, and related metrics:
-
-
-## 3. Class Distribution
-
-- Percentage of positive class:
-- Percentage of negative class:
-- Is the dataset imbalanced (yes/no):
-- If imbalanced, implications for modeling or evaluation:
+- What an error means: Difference between predicted and actual charges
+- Consequences of overestimation: Policy may be priced too high, potentially losing customers
+- Consequences of underestimation: Financial risk to insurer if actual costs exceed predictions
+- Error prioritization: Minimize RMSE to reduce large errors, maintain balanced performance
+- Rationale: RMSE penalizes larger errors more heavily, important for financial impact
 
 
-## 4. Costs of Errors
+## 3. Feature Review
 
-- What a true positive means in this application:
-- What a false positive means:
-- What a false negative means:
-- Which error is worse for this problem and why:
-- Whether the model should prioritize sensitivity, specificity, or a balanced tradeoff:
-- Rationale for this prioritization:
-
-
-## 5. Decision Threshold
-
-- Is the default threshold of 0.5 appropriate (yes/no):
-- Why or why not:
-- Proposed threshold:
-- Rationale for chosen threshold:
-- Should the threshold be optimized for precision, recall, cost, or other factors:
-- Who determines acceptable tradeoffs (stakeholders, domain experts, policy):
+- List of available features: age, sex, bmi, children, smoker, region, charges
+- Interaction features: age_smoker, children_smoker, age_children
+- Any restricted/disallowed features: charges cannot be used as input
+- Possible target leakage: None
+- Example of potential leakage: Including predicted_charges from other models in features
 
 
-## 6. Feature Review
+## 4. Evaluation Metrics
 
-- List of available features:
-- Any restricted or disallowed features:
-- Possible sources of target leakage:
-- Example of potential leakage in this scenario:
-- How time-dependent features were handled:
-- Any features occurring after the true outcome and how they were treated:
-
-
-## 7. Evaluation Metrics
-
-- Primary metric chosen:
-- Why this metric is appropriate:
-- Secondary metrics reported:
-- Brief discussion of these metrics:
-- Use of ROC-AUC, PR-AUC, F1, or other domain-specific metrics:
-- Brief explanation:
+- Primary metric chosen: RMSE (Root Mean Squared Error)
+- Why: Measures average magnitude of error in the same units as standardized charges
+- Secondary metrics: R², MAE
+- Brief discussion: Linear regression achieved R² ≈ 0.63, random forest R² ≈ 0.62, polynomial regression overfit and performed poorly
+- Use of domain-specific metrics: Standardized metrics used for comparability; RMSE emphasizes large prediction errors
 
 
-## 8. Baseline Performance
+## 5. Baseline Performance
 
-- Majority-class accuracy:
-- How majority-class accuracy was calculated:
-- Random-guess accuracy:
-- How random-guess accuracy was calculated:
-- Minimum performance required for the model to be useful:
-- Rationale for this threshold:
+- Baseline: Predict the mean of charges for all observations
+- Baseline RMSE: 1.030 (standardized)
+- Minimum performance required: RMSE < 1.030 to outperform baseline
+- Rationale: The model must provide meaningful predictive improvement over the naive mean prediction.
+- Model Performance (After Training)
+    - Model RMSE: 0.620
+    - Model MAE: 0.367
+    - Model R²: 0.633
 
-## 9. Data Splitting and Validation
-
-- Method used (train/test split or cross-validation):
-- Rationale for chosen method:
-- Is time order relevant (yes/no):
-- If yes, how time-based splitting was handled:
-- Possible leakage risks across splits (duplicates, identifiers, out-of-order events):
-- How these risks were mitigated:
+- Comparison: The model significantly reduces prediction error compared to the baseline, providing more accurate and actionable estimates of medical charges
 
 
-## 10. Real-World Impact
+## 6. Data Splitting and Validation
 
-- Primary users or decision-makers for this model:
-- Action triggered by a positive prediction:
-- Consequences of false positives:
-- Consequences of false negatives:
-- Potential impact on people, decisions, or systems:
-- Any ethical concerns or additional safeguards:
+- Method used: Train/test split (80% train / 20% test)
+- Rationale: Standard approach to evaluate generalization to unseen data
+- Is time order relevant: No
+- Possible leakage risks: Including target or derived features in training
+- Mitigation: Scaler fitted only on training set; interactions computed consistently
 
 
-## 11. Final Notes
+## 7. Real-World Impact
 
-- Key limitations:
-- Future improvements:
-- Any open questions or assumptions:
+- Primary users: Actuaries and insurance analysts
+- Action triggered: Adjust policy pricing or risk assessment for high-cost clients
+- Consequences of overestimation: Policies priced too high, losing customers
+- Consequences of underestimation: Financial risk to insurer
+- Ethical concerns: Ensure fair pricing and no discrimination based on protected characteristics
+
+
+## 8. Final Notes
+
+- Key limitations: Linear model may not capture all nonlinear interactions; random forest improves accuracy but loses interpretability; high-cost outliers affect predictions.
+- Future improvements: Test gradient boosting, XGBoost, hyperparameter tuning, log-transform charges to reduce skewness, incorporate additional features like pre-existing conditions.
+- Open questions/assumptions: Assumes dataset is representative; features independent except for included interactions.
