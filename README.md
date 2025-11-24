@@ -5,6 +5,11 @@
 ## Introduction
 This project uses regression analysis to explore how different factors influence a target outcome. Using the Medical Cost dataset, the goal is to build and evaluate models that predict insurance charges based on features like age, BMI, and smoking status. The project includes data exploration, feature selection, model training, and comparison of regression methods.
 
+### Links
+- [View Jupyter Notebook](https://github.com/LFoster03/ml_regression_foster/blob/main/regression_foster.ipynb)
+- [View Peer Review](https://github.com/LFoster03/ml_regression_foster/blob/main/peer_review.md)
+
+
 # Steps
 
 - Create the virtual environment
@@ -148,3 +153,7 @@ Create interaction features (e.g., BMI × smoker status).
 Apply robust scaling or feature transformations for skewed data.
 
 Analyze feature importance for model explainability.
+
+## Bonus
+
+ The dataset was explored for engineered features like age × smoker and children × smoker. Linear and polynomial regression models, as well as a Random Forest model, were trained and evaluated using R², MAE, and RMSE. Scenario analysis was performed to predict charges for different combinations of age, children, and smoking status, revealing that smoker status has the largest impact while age and BMI are also influential.
