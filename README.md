@@ -3,6 +3,7 @@
 **Date:** 11/23/2025
 
 ## Introduction
+This project uses regression analysis to explore how different factors influence a target outcome. Using the Medical Cost dataset, the goal is to build and evaluate models that predict insurance charges based on features like age, BMI, and smoking status. The project includes data exploration, feature selection, model training, and comparison of regression methods.
 
 # Steps
 
@@ -42,3 +43,12 @@ or comment out pandas==2.2.0 first, since you already installed it.
    - [Medical Cost Dataset](https://www.kaggle.com/mirichoi0218/insurance)
 
 ## Project Steps
+1. Import and Inspect the Data
+2. Data Exploration and Preparation
+3. Feature Selection and Justification
+4. Train a Model (Linear Regression)
+5. Improve the Model or Try Alternates (Implement Pipelines)
+6. Final Thoughts & Insights
+7. Peer Review
+
+## 
