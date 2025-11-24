@@ -14,4 +14,8 @@
 
 - How to use it - Save this file as requirements.txt in your project folder. Make sure your virtual environment is activated (.venv). Install all packages with: pip install -r requirements.txt. Select .venv as the kernel. Tell VS Code to use this .venv interpreter. Press Ctrl+Shift+P → type Python: Select Interpreter. Look for the interpreter in your .venv, e.g.:C:\Repos\project02\.venv\Scripts\python.exe. Select it. Reload VS Code to make sure it takes effect. This makes your editor aware of all packages installed in .venv.
 
+- CSV file into data folder
+  - Medical Costs Dataset (Predict insurance charges based on age, BMI, smoking status)  
+   - [Medical Cost Dataset](https://www.kaggle.com/mirichoi0218/insurance)
+
 ## Project Steps
