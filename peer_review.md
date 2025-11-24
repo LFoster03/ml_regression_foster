@@ -1,6 +1,5 @@
 ## Peer Review
-#### Link to Brenda Fuemmeler's Notebook: 
-[View Peer's Notebook](https://github.com/bfuemmeler/ml_regression_fuemmeler/blob/main/notebook/regression_fuemmeler.ipynb)
+[Link to Brenda Fuemmeler's Notebook](https://github.com/bfuemmeler/ml_regression_fuemmeler/blob/main/notebook/regression_fuemmeler.ipynb)
 
 1. Clarity & Organization (Is the notebook structured and easy to follow?)
    - Brenda Fuemmeler's notebook was well laid out. The steps are easy to follow. I liked that the notebook started with a question as the objective: 'Can we predict fuel efficiency based on engine specs and weight?' 
